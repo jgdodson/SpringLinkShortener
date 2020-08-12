@@ -19,7 +19,7 @@ public class LinkShortenerController {
         Optional<LinkMapping> l = linkShortenerService.getLink(id);
 
         if (l.isPresent()) {
-            httpServletResponse.setHeader("Location", l.get().getLink());
+            httpServletResponse.setHeader("Location", l.get().getUrl());
             httpServletResponse.setStatus(301);
 
             return "Redirecting...";

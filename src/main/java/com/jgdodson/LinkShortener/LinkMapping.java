@@ -1,9 +1,6 @@
 package com.jgdodson.LinkShortener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class LinkMapping {
@@ -12,14 +9,16 @@ public class LinkMapping {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String link;
+    @Column(unique = true)
+    private String url;
 
     // Default constructor, used by JPA
-    protected LinkMapping() {}
+    protected LinkMapping() {
+    }
 
     // Constructor
-    public LinkMapping(String link) {
-        this.link = link;
+    public LinkMapping(String url) {
+        this.url = url;
     }
 
     // Getter for id
@@ -27,8 +26,8 @@ public class LinkMapping {
         return id;
     }
 
-    // Getter for link
-    public String getLink() {
-        return link;
+    // Getter for url
+    public String getUrl() {
+        return url;
     }
 }

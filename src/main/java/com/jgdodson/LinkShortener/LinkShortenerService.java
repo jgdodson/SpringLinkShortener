@@ -7,15 +7,28 @@ import java.util.Optional;
 
 @Service
 public class LinkShortenerService {
+
     @Autowired
     LinkMappingRepository linkMappingRepository;
 
-    // TODO: Handle duplicate links
     public LinkMapping createLink(String url) {
 
-        LinkMapping savedLinkMapping = linkMappingRepository.save(new LinkMapping(url));
+        // Try to create a new LinkMapping
+        try {
+            return linkMappingRepository.save(new LinkMapping(url));
+        }
 
-        return savedLinkMapping;
+        // The url has already been shortened
+        catch (Exception e) {
+
+            Optional<LinkMapping> existingLinkMapping = linkMappingRepository.findByUrl(url);
+
+            if (existingLinkMapping.isPresent()) {
+                return existingLinkMapping.get();
+            } else {
+                throw e;
+            }
+        }
     }
 
     public Optional<LinkMapping> getLink(Long id) {
