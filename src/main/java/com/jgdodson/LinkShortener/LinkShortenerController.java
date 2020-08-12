@@ -10,13 +10,13 @@ import java.util.Optional;
 public class LinkShortenerController {
 
     @Autowired
-    LinkMappingRepository linkMappingRepository;
+    LinkShortenerService linkShortenerService;
 
     @GetMapping("/")
     public String hello(@RequestParam(value = "id") Long id, HttpServletResponse httpServletResponse) {
 
         // Get LinkMapping from database
-        Optional<LinkMapping> l = linkMappingRepository.findById(id);
+        Optional<LinkMapping> l = linkShortenerService.getLink(id);
 
         if (l.isPresent()) {
             httpServletResponse.setHeader("Location", l.get().getLink());
@@ -31,13 +31,9 @@ public class LinkShortenerController {
     }
 
     @PostMapping("/")
-    public String addLink(@RequestBody String link) {
+    public String addLink(@RequestBody String url) {
 
-        // TODO: Handle duplicate links
-
-        LinkMapping linkMapping = new LinkMapping(link);
-
-        LinkMapping savedLinkMapping = linkMappingRepository.save(linkMapping);
+        LinkMapping savedLinkMapping = linkShortenerService.createLink(url);
 
         return savedLinkMapping.getId().toString();
     }
