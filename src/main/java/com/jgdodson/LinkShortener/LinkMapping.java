@@ -2,6 +2,9 @@ package com.jgdodson.LinkShortener;
 
 import javax.persistence.*;
 
+/**
+ * Represents the mapping from short link (id) to long link (url)
+ */
 @Entity
 public class LinkMapping {
 

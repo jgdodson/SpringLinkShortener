@@ -1,11 +1,14 @@
 package com.jgdodson.LinkShortener;
 
+import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
-
+/**
+ * Handles routes for link-shortening (GET, POST)
+ */
 @RestController
 public class LinkShortenerController {
 
